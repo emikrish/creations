@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>music</title>
+  <style>
+    body {
+      background: #fff0f3;
+      color: #b22234;
+      font-family: 'Inter', sans-serif;
+      padding: 3em;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      margin-bottom: 1em;
+    }
+
+    audio {
+      width: 100%;
+      margin: 1em 0;
+    }
+
+    iframe {
+      width: 100%;
+      height: 152px;
+      border: none;
+      margin: 2em 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>tunes</h1>
+
+  <!-- local audio file -->
+  <p>homemade jam! "Snow Day Song"
+    me on violin,
+    Alexis Chang on guitar,
+    mixed by Ian Guthrie
+  </p>
+  <audio controls>
+    <source src="assets/audio/snowdaysong.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+    
+  <p>more homemade jam! "Story of a Traveler"
+    me on violin,
+    random instruments by Ian Guthrie,
+    mixed by Ian Guthrie.
+  </p>
+  <audio controls>
+    <source src="assets/audio/traveler.mp3" type="audio/mpeg">
+    Your browser does not support the audio tag.
+  </audio>
+
+  <!-- spotify embed -->
+  <p>Antediluvian (Pocket Jazz)</p>
+  <iframe src="https://open.spotify.com/track/2s2VjNU4szZDA6C8r48ZkS?si=d603b6f741fe4f4c" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+
+</body>
+</html>
