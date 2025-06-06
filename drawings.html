@@ -12,35 +12,40 @@
     }
 
     body {
-      min-height: 300vh;
+      height: 100vh;
       font-family: sans-serif;
       overflow-x: hidden;
-      background: linear-gradient(to bottom, #ffffe6, #fff7e6, #ff80b3);
-      background-attachment: fixed;
-      background-size: cover;
-      background-position: center;
       position: relative;
     }
 
+    /* Parallax background layer */
+    .parallax {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at 20% 20%, #fffcef, #ffe4e1, #ffafcc, #ff80b3);
+      z-index: -1;
+    }
+
+    /* Container for scattered images with scrollable height */
     .scatter {
       position: relative;
       width: 100%;
-      height: 300vh;
+      height: 200vh; /* twice viewport height, adjust as needed */
     }
 
     .scatter img {
       position: absolute;
-      width: calc(80px + 10vw);
-      opacity: 0.95;
-      transition: transform 0.3s;
-    }
-
-    .scatter img:hover {
-      /* transform: scale(1.1); */
+      width: calc(60px + 8vw);
+      opacity: 0.9;
+      transition: none; /* no hover movement */
     }
   </style>
 </head>
 <body>
+  <div class="parallax"></div>
   <div class="scatter" id="scatter"></div>
 
   <script>
@@ -49,12 +54,40 @@
     ];
 
     const container = document.getElementById("scatter");
-    images.forEach((img, i) => {
+    const usedPositions = [];
+
+    function getRandomPosition(imgWidth, imgHeight) {
+      const maxX = window.innerWidth - imgWidth;
+      const maxY = (window.innerHeight * 2) - imgHeight; // scatter height
+      let x, y;
+      let attempts = 0;
+      do {
+        x = Math.random() * maxX;
+        y = Math.random() * maxY;
+        attempts++;
+        // Prevent infinite loop
+        if (attempts > 100) break;
+      } while (usedPositions.some(pos => {
+        return Math.abs(pos.x - x) < imgWidth && Math.abs(pos.y - y) < imgHeight;
+      }));
+      usedPositions.push({ x, y });
+      return { x, y };
+    }
+
+    images.forEach((img) => {
       const el = document.createElement("img");
       el.src = `assets/sketches/${img}`;
       el.alt = "drawing";
-      el.style.top = `${Math.random() * 280 + 10}vh`;
-      el.style.left = `${Math.random() * 80 + 5}vw`;
+      // Temporarily set width to calculate position
+      el.style.width = "calc(60px + 8vw)";
+      document.body.appendChild(el);
+      const rect = el.getBoundingClientRect();
+      const imgWidth = rect.width;
+      const imgHeight = rect.height;
+      document.body.removeChild(el);
+      const pos = getRandomPosition(imgWidth, imgHeight);
+      el.style.top = `${pos.y}px`;
+      el.style.left = `${pos.x}px`;
       container.appendChild(el);
     });
   </script>
