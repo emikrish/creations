@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>my archive</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;500&display=swap');
+
+    body {
+      margin: 0;
+      background: #ffeef1;
+      color: #d12f43;
+      font-family: 'Inter', sans-serif;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .menu {
+      text-align: left;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4em;
+      max-width: 900px;
+    }
+
+    .menu h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5em;
+      font-weight: 700;
+      margin-bottom: 0.5em;
+    }
+
+    .nav {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      font-size: 1.2em;
+    }
+
+    .nav a {
+      color: #d12f43;
+      text-decoration: none;
+      font-family: 'Playfair Display', serif;
+      transition: all 0.2s ease;
+    }
+
+    .nav a:hover {
+      color: #a61e31;
+      margin-left: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <div>
+      <h1>my archive</h1>
+      <p>for music, drawing, design, and beauty</p>
+    </div>
+    <div class="nav">
+      <a href="music.html">Music</a>
+      <a href="drawings.html">Drawings</a>
+      <a href="web.html">Web Design</a>
+      <a href="photos.html">Photographs</a>
+      <a href="pretty.html">Pretty Things</a>
+    </div>
+  </div>
+</body>
+</html>
