@@ -13,19 +13,31 @@
 
     body {
       min-height: 400vh;
-      background: linear-gradient(to bottom, #fff0f3, #e0e6ff, #fef1f6);
-      background-attachment: fixed;
       font-family: sans-serif;
       overflow-x: hidden;
-      padding: 4em;
+    }
+
+    .parallax {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      z-index: -1;
+      background: linear-gradient(to bottom, #fff0f3, #e0e6ff, #fef1f6);
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
     }
 
     .scatter {
+      position: relative;
       display: flex;
       flex-wrap: wrap;
       gap: 4em;
       justify-content: center;
       align-items: flex-start;
+      padding: 5em;
     }
 
     .scatter img {
@@ -41,6 +53,7 @@
   </style>
 </head>
 <body>
+  <div class="parallax"></div>
   <div class="scatter">
     <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.1">
     <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.4">
