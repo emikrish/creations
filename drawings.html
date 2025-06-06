@@ -1,3 +1,6 @@
+---
+layout: none
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,9 +52,8 @@
   <div class="scatter" id="scatter"></div>
 
   <script>
-    const images = [
-      "lily.png", "lily.png", "lily.png", "lily.png", "lily.png", "lily.png"
-    ];
+    // Build the images array using Jekyll to list all PNGs in assets/sketches
+    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"/{{ file.path }}", {% endif %}{% endfor %}];
 
     const container = document.getElementById("scatter");
     const usedPositions = [];
@@ -65,7 +67,6 @@
         x = Math.random() * maxX;
         y = Math.random() * maxY;
         attempts++;
-        // Prevent infinite loop
         if (attempts > 100) break;
       } while (usedPositions.some(pos => {
         return Math.abs(pos.x - x) < imgWidth && Math.abs(pos.y - y) < imgHeight;
@@ -74,11 +75,10 @@
       return { x, y };
     }
 
-    images.forEach((img) => {
+    images.forEach((src) => {
       const el = document.createElement("img");
-      el.src = `assets/sketches/${img}`;
+      el.src = src;
       el.alt = "drawing";
-      // Temporarily set width to calculate position
       el.style.width = "calc(60px + 8vw)";
       document.body.appendChild(el);
       const rect = el.getBoundingClientRect();
