@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>drawings</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 400vh;
+      background: linear-gradient(to bottom, #fff0f3, #e0e6ff, #fef1f6);
+      background-attachment: fixed;
+      font-family: sans-serif;
+      overflow-x: hidden;
+      padding: 4em;
+    }
+
+    .scatter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4em;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .scatter img {
+      max-width: 180px;
+      opacity: 0.9;
+      transform: rotate(calc(-5deg + 10deg * var(--r)));
+      transition: transform 0.3s;
+    }
+
+    .scatter img:hover {
+      transform: scale(1.05) rotate(0deg);
+    }
+  </style>
+</head>
+<body>
+  <div class="scatter">
+    <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.1">
+    <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.4">
+    <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.7">
+    <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.3">
+    <img src="assets/photos/shadow.JPG" alt="drawing" style="--r: 0.9">
+    <!-- Add more <img> tags as needed -->
+  </div>
+</body>
+</html>
