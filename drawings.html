@@ -36,18 +36,27 @@
     }
 
     .scatter img:hover {
-      transform: scale(1.1);
+      /* transform: scale(1.1);
     }
   </style>
 </head>
 <body>
-  <div class="scatter">
-    <img src="assets/sketches/lily.png" alt="drawing" style="top: 10vh; left: 10vw;">
-    <img src="assets/sketches/lily.png" alt="drawing" style="top: 50vh; left: 30vw;">
-    <img src="assets/sketches/lily.png" alt="drawing" style="top: 90vh; left: 60vw;">
-    <img src="assets/sketches/lily.png" alt="drawing" style="top: 130vh; left: 20vw;">
-    <img src="assets/sketches/lily.png" alt="drawing" style="top: 170vh; left: 70vw;">
-    <!-- Add more <img> tags with varied top/left values for spacing -->
-  </div>
+  <div class="scatter" id="scatter"></div>
+
+  <script>
+    const images = [
+      "lily.png", "lily.png", "lily.png", "lily.png", "lily.png", "lily.png"
+    ];
+
+    const container = document.getElementById("scatter");
+    images.forEach((img, i) => {
+      const el = document.createElement("img");
+      el.src = `assets/sketches/${img}`;
+      el.alt = "drawing";
+      el.style.top = `${Math.random() * 280 + 10}vh`;
+      el.style.left = `${Math.random() * 80 + 5}vw`;
+      container.appendChild(el);
+    });
+  </script>
 </body>
 </html>
