@@ -72,14 +72,13 @@ layout: none
       }
 
       images.forEach(img => {
-        img.onload = () => {
-          const size = getRandomSize();
-          img.style.width = size + 'px';
-          const pos = getRandomPos(size, size);
-          img.style.top = pos.y + 'px';
-          img.style.left = pos.x + 'px';
-        };
+        const size = getRandomSize();
+        img.style.width = size + 'px';
+        const pos = getRandomPos(size, size);
+        img.style.top = pos.y + 'px';
+        img.style.left = pos.x + 'px';
       });
+
     };
   </script>
 </body>
