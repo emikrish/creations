@@ -27,7 +27,8 @@ layout: none
       position: absolute;
       opacity: 0.9;
       transition: none;
-      max-width: 350px;
+      max-width: 450px;
+      min-width: 200px;
       height: auto;
     }
 
@@ -55,7 +56,7 @@ layout: none
       const used = [];
 
       function getRandomSize() {
-        return Math.floor(Math.random() * 120) + 80;
+        return Math.floor(Math.random() * 120) + 100;
       }
 
       function getRandomPos(w, h) {
