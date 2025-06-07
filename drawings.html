@@ -15,7 +15,7 @@ layout: none
     }
 
     body {
-      height: 100vh;
+      /* allow full scrolling */
       font-family: sans-serif;
       overflow-x: hidden;
       position: relative;
@@ -29,21 +29,37 @@ layout: none
       width: 100%;
       height: 100%;
       background: radial-gradient(circle at 20% 20%, #fffcef, #ffe4e1, #ffafcc, #ff80b3);
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
       z-index: -1;
     }
 
-    /* Container for scattered images with scrollable height */
+    /* Container for scattered images and scrolling space */
     .scatter {
       position: relative;
       width: 100%;
-      height: 200vh; /* twice viewport height, adjust as needed */
+      height: 200vh; /* enough space to scroll */
     }
 
     .scatter img {
       position: absolute;
       width: calc(60px + 8vw);
       opacity: 0.9;
-      transition: none; /* no hover movement */
+      transition: none;
+    }
+
+    /* Copyright footer */
+    .footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.8em;
+      color: rgba(0, 0, 0, 0.5);
+      background: rgba(255, 255, 255, 0.5);
+      padding: 4px 0;
+      backdrop-filter: blur(4px);
     }
   </style>
 </head>
@@ -52,44 +68,42 @@ layout: none
   <div class="scatter" id="scatter"></div>
 
   <script>
-    // Build the images array using Jekyll to list all PNGs in assets/sketches
-    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"/{{ file.path }}", {% endif %}{% endfor %}];
+    // Auto-load all PNGs from assets/sketches (no leading slash for relative paths)
+    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
 
     const container = document.getElementById("scatter");
-    const usedPositions = [];
+    const used = [];
 
-    function getRandomPosition(imgWidth, imgHeight) {
-      const maxX = window.innerWidth - imgWidth;
-      const maxY = (window.innerHeight * 2) - imgHeight; // scatter height
-      let x, y;
-      let attempts = 0;
+    function getRandomPos(w, h) {
+      const maxX = window.innerWidth - w;
+      const maxY = window.innerHeight * 2 - h;
+      let x, y, ok;
+      let tries = 0;
       do {
         x = Math.random() * maxX;
         y = Math.random() * maxY;
-        attempts++;
-        if (attempts > 100) break;
-      } while (usedPositions.some(pos => {
-        return Math.abs(pos.x - x) < imgWidth && Math.abs(pos.y - y) < imgHeight;
-      }));
-      usedPositions.push({ x, y });
+        ok = !used.some(p => Math.abs(p.x - x) < w && Math.abs(p.y - y) < h);
+        tries++;
+        if (tries > 100) break;
+      } while (!ok);
+      used.push({ x, y });
       return { x, y };
     }
 
-    images.forEach((src) => {
-      const el = document.createElement("img");
-      el.src = src;
-      el.alt = "drawing";
-      el.style.width = "calc(60px + 8vw)";
-      document.body.appendChild(el);
-      const rect = el.getBoundingClientRect();
-      const imgWidth = rect.width;
-      const imgHeight = rect.height;
-      document.body.removeChild(el);
-      const pos = getRandomPosition(imgWidth, imgHeight);
-      el.style.top = `${pos.y}px`;
-      el.style.left = `${pos.x}px`;
-      container.appendChild(el);
+    images.forEach(src => {
+      const img = new Image();
+      img.src = src;
+      img.onload = () => {
+        const { width: w, height: h } = img;
+        const pos = getRandomPos(w, h);
+        img.style.top = pos.y + 'px';
+        img.style.left = pos.x + 'px';
+        container.appendChild(img);
+      };
+      img.className = 'scatter-img';
     });
   </script>
+
+  <div class="footer">© 2025 Your Name</div>
 </body>
 </html>
