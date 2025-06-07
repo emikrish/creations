@@ -64,7 +64,8 @@ layout: none
   <div class="parallax"></div>
   <div class="scatter" id="scatter"></div>
 
-  <script>
+ <script>
+  window.onload = () => {
     const images = [
       "assets/sketches/lily.png",
       "assets/sketches/fiskelet1.png",
@@ -93,6 +94,7 @@ layout: none
     images.forEach(src => {
       const img = new Image();
       img.src = src;
+      img.className = 'scatter-img';
       img.onload = () => {
         const { width: w, height: h } = img;
         const pos = getRandomPos(w, h);
@@ -100,9 +102,9 @@ layout: none
         img.style.left = pos.x + 'px';
         container.appendChild(img);
       };
-      img.className = 'scatter-img';
     });
-  </script>
+  };
+</script>
 
 </body>
 </html>
