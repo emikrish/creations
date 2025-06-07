@@ -16,27 +16,17 @@ layout: none
 
     body {
       font-family: sans-serif;
-      overflow-x: hidden;
+      overflow: hidden;
+      width: 100vw;
+      height: 100vh;
       position: relative;
-    }
-
-    .parallax {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
       background: radial-gradient(circle at 20% 20%, #fffcef, #ffe4e1, #ffafcc, #ff80b3);
-      background-attachment: fixed;
-      background-size: cover;
-      background-position: center;
-      z-index: -1;
     }
 
     .scatter {
       position: relative;
-      width: 100%;
-      height: 200vh;
+      width: 100vw;
+      height: 100vh;
     }
 
     .scatter img {
@@ -44,22 +34,9 @@ layout: none
       opacity: 0.9;
       transition: none;
     }
-
-    .footer {
-      position: fixed;
-      bottom: 10px;
-      width: 100%;
-      text-align: center;
-      font-size: 0.8em;
-      color: rgba(0, 0, 0, 0.5);
-      background: rgba(255, 255, 255, 0.5);
-      padding: 4px 0;
-      backdrop-filter: blur(4px);
-    }
   </style>
 </head>
 <body>
-  <div class="parallax"></div>
   <div class="scatter" id="scatter"></div>
 
   <script>
@@ -71,9 +48,7 @@ layout: none
         "assets/sketches/fiskelet2.png"
       ];
 
-
       const container = document.getElementById("scatter");
-      const used = [];
 
       function getRandomSize() {
         return Math.floor(Math.random() * 120) + 80; // between 80 and 200 px
@@ -81,18 +56,11 @@ layout: none
 
       function getRandomPos(w, h) {
         const maxX = window.innerWidth - w;
-        const maxY = window.innerHeight * 2 - h;
-        let x, y, ok;
-        let tries = 0;
-        do {
-          x = Math.random() * maxX;
-          y = Math.random() * maxY;
-          ok = !used.some(p => Math.abs(p.x - x) < w && Math.abs(p.y - y) < h);
-          tries++;
-          if (tries > 100) break;
-        } while (!ok);
-        used.push({ x, y, w, h });
-        return { x, y };
+        const maxY = window.innerHeight - h;
+        return {
+          x: Math.random() * maxX,
+          y: Math.random() * maxY
+        };
       }
 
       images.forEach(src => {
@@ -110,6 +78,5 @@ layout: none
       });
     };
   </script>
-
 </body>
 </html>
