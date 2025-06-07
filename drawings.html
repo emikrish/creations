@@ -37,18 +37,17 @@ layout: none
   </style>
 </head>
 <body>
-  <div class="scatter" id="scatter"></div>
+  <div class="scatter" id="scatter">
+    {% assign sketches = site.static_files | where_exp: "file", "file.path contains 'assets/sketches/' and file.extname == '.png'" %}
+    {% for sketch in sketches %}
+      <img src="{{ sketch.path }}" alt="drawing" class="scatter-img" data-randomize="true">
+    {% endfor %}
+  </div>
 
   <script>
     window.onload = () => {
-      const images = [
-        "assets/sketches/lily.png",
-        "assets/sketches/oupy.png",
-        "assets/sketches/fiskelet3.png",
-        "assets/sketches/fiskelet2.png"
-      ];
-
       const container = document.getElementById("scatter");
+      const images = Array.from(container.querySelectorAll("img[data-randomize='true']"));
       const used = [];
 
       function getRandomSize() {
@@ -71,18 +70,14 @@ layout: none
         return { x, y };
       }
 
-      images.forEach(src => {
-        const img = new Image();
-        img.src = src;
+      images.forEach(img => {
         img.onload = () => {
           const size = getRandomSize();
           img.style.width = size + 'px';
           const pos = getRandomPos(size, size);
           img.style.top = pos.y + 'px';
           img.style.left = pos.x + 'px';
-          container.appendChild(img);
         };
-        img.className = 'scatter-img';
       });
     };
   </script>
