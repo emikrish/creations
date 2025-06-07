@@ -21,7 +21,6 @@ layout: none
       position: relative;
     }
 
-    /* Parallax background layer */
     .parallax {
       position: fixed;
       top: 0;
@@ -35,7 +34,6 @@ layout: none
       z-index: -1;
     }
 
-    /* Container for scattered images and scrolling space */
     .scatter {
       position: relative;
       width: 100%;
@@ -49,7 +47,6 @@ layout: none
       transition: none;
     }
 
-    /* Copyright footer */
     .footer {
       position: fixed;
       bottom: 10px;
@@ -68,9 +65,6 @@ layout: none
   <div class="scatter" id="scatter"></div>
 
   <script>
-    // Auto-load all PNGs from assets/sketches (no leading slash for relative paths)
-    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
-
     const images = [
       "assets/sketches/lily.png",
       "assets/sketches/fiskelet1.png",
@@ -110,6 +104,5 @@ layout: none
     });
   </script>
 
-  <div class="footer">© 2025 Your Name</div>
 </body>
 </html>
