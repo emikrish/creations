@@ -49,18 +49,26 @@ layout: none
       ];
 
       const container = document.getElementById("scatter");
+      const used = [];
 
       function getRandomSize() {
-        return Math.floor(Math.random() * 120) + 80; // between 80 and 200 px
+        return Math.floor(Math.random() * 120) + 80;
       }
 
       function getRandomPos(w, h) {
         const maxX = window.innerWidth - w;
         const maxY = window.innerHeight - h;
-        return {
-          x: Math.random() * maxX,
-          y: Math.random() * maxY
-        };
+        let x, y, ok;
+        let tries = 0;
+        do {
+          x = Math.random() * maxX;
+          y = Math.random() * maxY;
+          ok = !used.some(p => Math.abs(p.x - x) < w && Math.abs(p.y - y) < h);
+          tries++;
+          if (tries > 100) break;
+        } while (!ok);
+        used.push({ x, y, w, h });
+        return { x, y };
       }
 
       images.forEach(src => {
