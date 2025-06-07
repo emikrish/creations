@@ -71,6 +71,12 @@ layout: none
     // Auto-load all PNGs from assets/sketches (no leading slash for relative paths)
     const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
 
+    const images = [
+      "assets/sketches/lily.png",
+      "assets/sketches/fiskelet1.png",
+      "assets/sketches/fiskelet3.png"
+    ];
+
     const container = document.getElementById("scatter");
     const used = [];
 
