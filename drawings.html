@@ -36,12 +36,11 @@ layout: none
     .scatter {
       position: relative;
       width: 100%;
-      height: 100vh;
+      height: 200vh;
     }
 
     .scatter img {
       position: absolute;
-      width: calc(60px + 8vw);
       opacity: 0.9;
       transition: none;
     }
@@ -63,50 +62,56 @@ layout: none
   <div class="parallax"></div>
   <div class="scatter" id="scatter"></div>
 
- <script>
-  window.onload = () => {
-    const images = [
-      "assets/sketches/lily.png",
-      "assets/sketches/fiskelet1.png",
-      "assets/sketches/fiskelet3.png"
-    ];
+  <script>
+    window.onload = () => {
+      const images = [
+        "assets/sketches/lily.png",
+        "assets/sketches/fiskelet1.png",
+        "assets/sketches/fiskelet3.png"
+      ];
 
-    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
+      const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
 
 
-    const container = document.getElementById("scatter");
-    const used = [];
+      const container = document.getElementById("scatter");
+      const used = [];
 
-    function getRandomPos(w, h) {
-      const maxX = window.innerWidth - w;
-      const maxY = window.innerHeight * 2 - h;
-      let x, y, ok;
-      let tries = 0;
-      do {
-        x = Math.random() * maxX;
-        y = Math.random() * maxY;
-        ok = !used.some(p => Math.abs(p.x - x) < w && Math.abs(p.y - y) < h);
-        tries++;
-        if (tries > 100) break;
-      } while (!ok);
-      used.push({ x, y });
-      return { x, y };
-    }
+      function getRandomSize() {
+        return Math.floor(Math.random() * 120) + 80; // between 80 and 200 px
+      }
 
-    images.forEach(src => {
-      const img = new Image();
-      img.src = src;
-      img.className = 'scatter-img';
-      img.onload = () => {
-        const { width: w, height: h } = img;
-        const pos = getRandomPos(w, h);
-        img.style.top = pos.y + 'px';
-        img.style.left = pos.x + 'px';
-        container.appendChild(img);
-      };
-    });
-  };
-</script>
+      function getRandomPos(w, h) {
+        const maxX = window.innerWidth - w;
+        const maxY = window.innerHeight * 2 - h;
+        let x, y, ok;
+        let tries = 0;
+        do {
+          x = Math.random() * maxX;
+          y = Math.random() * maxY;
+          ok = !used.some(p => Math.abs(p.x - x) < w && Math.abs(p.y - y) < h);
+          tries++;
+          if (tries > 100) break;
+        } while (!ok);
+        used.push({ x, y, w, h });
+        return { x, y };
+      }
 
+      images.forEach(src => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          const size = getRandomSize();
+          img.style.width = size + 'px';
+          const pos = getRandomPos(size, size);
+          img.style.top = pos.y + 'px';
+          img.style.left = pos.x + 'px';
+          container.appendChild(img);
+        };
+        img.className = 'scatter-img';
+      });
+    };
+  </script>
+
+  <div class="footer">© 2025 Your Name</div>
 </body>
 </html>
