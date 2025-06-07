@@ -72,6 +72,9 @@ layout: none
       "assets/sketches/fiskelet3.png"
     ];
 
+    const images = [{% for file in site.static_files %}{% if file.path contains 'assets/sketches/' and file.extname == '.png' %}"{{ file.path }}", {% endif %}{% endfor %}];
+
+
     const container = document.getElementById("scatter");
     const used = [];
 
