@@ -41,7 +41,7 @@ layout: none
     {% assign all_sketches = site.static_files | where: "extname", ".png" %}
     {% assign sketches = all_sketches | where_exp: "file", "file.path contains 'assets/sketches/'" %}
     {% for sketch in sketches %}
-      <img src="{{ sketch.path }}" alt="drawing" class="scatter-img" data-randomize="true">
+      <img src="{{ sketch.path | relative_url }}" alt="drawing" class="scatter-img" data-randomize="true">
     {% endfor %}
   </div>
 
